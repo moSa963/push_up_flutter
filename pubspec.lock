@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.4"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.1"
   args:
     dependency: transitive
     description:
@@ -90,7 +98,7 @@ packages:
     source: hosted
     version: "3.0.3"
   build_runner:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: build_runner
       sha256: b24597fceb695969d47025c958f3837f9f0122e237c6a22cb082a5ac66c3ca30
@@ -355,6 +363,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.0"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: bb2ce4590bc2667c96f318d68cac1b5a7987ec819351d32b1c987239a815e007
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -383,26 +399,26 @@ packages:
     dependency: "direct main"
     description:
       name: isar
-      sha256: "91b889d1ccbd14de5f57827a5d9e231fcdc18456875f5c2006b39e611b588a9b"
+      sha256: d1863d38b3bd3acb7e040414a8d1d98d708c4621db3c09980b7a310b63460e2c
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.5.0"
   isar_flutter_libs:
     dependency: "direct main"
     description:
       name: isar_flutter_libs
-      sha256: "1bc209019e5e0c8c22d8edde34513a9ce14481c2cbb96ce99c68e81310b70b58"
+      sha256: "581d1352b41205617cc1d124e75baf747650803337c734d2352d5eef7b9cb26b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.5.0"
   js:
     dependency: transitive
     description:
       name: js
-      sha256: "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc"
+      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.2"
+    version: "0.6.7"
   json_annotation:
     dependency: transitive
     description:
@@ -451,6 +467,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
+      sha256: "377d87b8dcef640c04717e93afb86a510f0e1117a399ab94dc4b3f39c85eaa87"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   matcher:
     dependency: transitive
     description:
