@@ -17,8 +17,8 @@ class MainListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firstRad = first ? Radius.circular(20) : Radius.zero;
-    final lastRad = last ? Radius.circular(20) : Radius.zero;
+    final firstRad = first ? Radius.circular(10) : Radius.zero;
+    final lastRad = last ? Radius.circular(10) : Radius.zero;
 
     return GestureDetector(
       onTap: () => onTap?.call(child),
@@ -27,7 +27,7 @@ class MainListViewItem extends StatelessWidget {
         padding: EdgeInsets.all(20),
         margin: selected ? EdgeInsets.only(top: 5, bottom: 5) : EdgeInsets.zero,
         decoration: BoxDecoration(
-          color: Colors.black12,
+          color: Theme.of(context).splashColor.withAlpha(10),
           borderRadius: BorderRadius.only(
             topLeft: firstRad,
             topRight: firstRad,
@@ -35,7 +35,7 @@ class MainListViewItem extends StatelessWidget {
             bottomRight: lastRad,
           ),
         ),
-        child: Center(child: child),
+        child: child,
       ),
     );
   }
