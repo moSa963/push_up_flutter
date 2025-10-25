@@ -17,7 +17,7 @@ class FlatButton extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary.withAlpha(100),
         ),
       ),
-      child: Text("data"),
+      child: child,
     );
   }
 }
