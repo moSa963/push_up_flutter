@@ -19,7 +19,11 @@ class ButtonList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 10,
         children: [
-          Text(title),
+          Text(
+            title,
+            textScaler: TextScaler.linear(1.2),
+            style: TextStyle(color: Theme.of(context).hintColor),
+          ),
           Wrap(spacing: 5, children: list),
         ],
       ),
