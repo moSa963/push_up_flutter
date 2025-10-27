@@ -14,13 +14,13 @@ class _MainListViewState extends State<MainListView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (int i = 0; i < widget.children.length; ++i)
           MainListViewItem(
-            onTap: (child) => setState(() {
-              _selected = child;
-            }),
+            onTap: (child) => {},
             first: i == 0,
             selected: widget.children[i] == _selected,
             last: i == widget.children.length - 1,
