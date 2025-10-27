@@ -17,16 +17,26 @@ class _MainListViewState extends State<MainListView> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        for (int i = 0; i < widget.children.length; ++i)
-          MainListViewItem(
-            onTap: (child) => {},
-            first: i == 0,
-            selected: widget.children[i] == _selected,
-            last: i == widget.children.length - 1,
-            child: widget.children[i],
-          ),
-      ],
+      children: widget.children.isNotEmpty
+          ? [
+              for (int i = 0; i < widget.children.length; ++i)
+                MainListViewItem(
+                  onTap: (child) => {},
+                  first: i == 0,
+                  selected: widget.children[i] == _selected,
+                  last: i == widget.children.length - 1,
+                  child: widget.children[i],
+                ),
+            ]
+          : [
+              MainListViewItem(
+                onTap: (child) => {},
+                first: true,
+                selected: false,
+                last: true,
+                child: Text("No items."),
+              ),
+            ],
     );
   }
 }
