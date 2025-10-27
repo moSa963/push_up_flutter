@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:push_up_flutter/pages/HomePage.dart';
+import 'package:push_up_flutter/pages/home_page/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Push Up',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      home: const HomePage(),
     );
   }
 }
