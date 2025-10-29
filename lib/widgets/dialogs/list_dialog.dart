@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:push_up_flutter/widgets/flat_button.dart';
+import 'package:push_up_flutter/widgets/dialogs/dialog_button.dart';
 
 class ListDialog extends StatelessWidget {
-  const ListDialog({super.key});
+  const ListDialog({super.key, this.actions});
+  final List<DialogButton>? actions;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: FractionallySizedBox(
-        widthFactor: 0.9,
-        heightFactor: 0.9,
+        widthFactor: 0.95,
+        heightFactor: 0.95,
         child: Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
@@ -18,19 +19,22 @@ class ListDialog extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Container(
-                color: Colors.black26,
+              SizedBox(
                 height: 50,
-                child: Padding(
-                  padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      FlatButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text("exits"),
+                child: Row(
+                  children: [
+                    DialogButton(
+                      onPressed: () => _handleClose(context),
+                      color: Colors.redAccent,
+                      child: Icon(Icons.close),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: actions ?? [],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -47,5 +51,9 @@ class ListDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleClose(BuildContext context) {
+    Navigator.pop(context);
   }
 }
