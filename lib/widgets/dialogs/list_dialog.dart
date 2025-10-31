@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:push_up_flutter/widgets/dialogs/dialog_button.dart';
 
 class ListDialog extends StatelessWidget {
-  const ListDialog({super.key, this.actions});
+  const ListDialog({super.key, this.actions, required this.child});
   final List<DialogButton>? actions;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +41,7 @@ class ListDialog extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsetsGeometry.all(5),
-                  child: ListView(children: [
-
-                    ],
-                  ),
+                  child: child,
                 ),
               ),
             ],
