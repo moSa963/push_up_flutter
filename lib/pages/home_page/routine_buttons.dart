@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:push_up_flutter/widgets/buttons_list.dart';
+import 'package:push_up_flutter/widgets/dialogs/create_routine_dialog.dart';
 import 'package:push_up_flutter/widgets/flat_button.dart';
 
 class RoutineButtons extends StatelessWidget {
@@ -11,7 +12,7 @@ class RoutineButtons extends StatelessWidget {
       title: "Add new routine",
       list: [
         FlatButton(
-          onPressed: () {},
+          onPressed: () => _handleCreateOne(context),
           child: Wrap(
             spacing: 2,
             children: [Icon(Icons.task), Text("create one")],
@@ -26,6 +27,16 @@ class RoutineButtons extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _handleCreateOne(BuildContext context) {
+    showDialog(
+      barrierColor: Color.fromARGB(50, 0, 0, 0),
+      context: context,
+      builder: (context) {
+        return CreateRoutineDialogs();
+      },
     );
   }
 }
