@@ -32,7 +32,7 @@ class RoutineButtons extends StatelessWidget {
 
   void _handleCreateOne(BuildContext context) {
     showDialog(
-      barrierColor: Color.fromARGB(50, 0, 0, 0),
+      barrierColor: Colors.transparent,
       context: context,
       builder: (context) {
         return CreateRoutineDialogs();
