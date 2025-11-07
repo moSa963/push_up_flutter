@@ -11,24 +11,22 @@ class CreateRoutineDialogs extends StatefulWidget {
 class _CreateRoutineDialogsState extends State<CreateRoutineDialogs> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: ListDialog(
-        child: ListView(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Title',
-                border: OutlineInputBorder(
-                  gapPadding: 1,
-                  borderSide: BorderSide(width: 1),
-                ),
-              ),
-              onChanged: (text) {
-                print(text);
-              },
+    return ListDialog(
+      child: ListView(
+        children: [
+          TextField(
+            decoration: InputDecoration(
+              filled: true,
+              labelText: 'Title',
+              border: InputBorder.none,
+              fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
             ),
-          ],
-        ),
+
+            onChanged: (text) {
+              print(text);
+            },
+          ),
+        ],
       ),
     );
   }
