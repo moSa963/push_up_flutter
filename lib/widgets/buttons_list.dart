@@ -11,7 +11,7 @@ class ButtonList extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Theme.of(context).splashColor.withAlpha(10),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: Column(
