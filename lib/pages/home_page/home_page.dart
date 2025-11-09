@@ -15,9 +15,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(label: "home", icon: Icon(Icons.home)),
           BottomNavigationBarItem(label: "list", icon: Icon(Icons.list)),
+          BottomNavigationBarItem(
+            label: "settings",
+            icon: Icon(Icons.settings),
+          ),
         ],
       ),
       body: Padding(
