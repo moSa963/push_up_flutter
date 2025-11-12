@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:push_up_flutter/widgets/dialogs/base_dialog.dart';
 import 'package:push_up_flutter/widgets/dialogs/dialog_button.dart';
 
 class NavigableDialog extends StatefulWidget {
   const NavigableDialog({super.key, this.actions, required this.builder});
   final List<DialogButton>? actions;
   final Widget Function(
-    Future<T?>? Function<T extends Object?>(Route<T> push)? push,
-    Function pop,
+    Function(Widget widget, List<DialogButton> actions) push,
+    Function() pop,
   )
   builder;
 
@@ -14,82 +15,84 @@ class NavigableDialog extends StatefulWidget {
   State<NavigableDialog> createState() => _NavigableDialogState();
 }
 
-class _NavigableDialogState extends State<NavigableDialog> {
-  final GlobalKey<NavigatorState> _innerNavigatorKey =
-      GlobalKey<NavigatorState>();
-
+class _NavigableDialogState extends State<NavigableDialog>
+    with SingleTickerProviderStateMixin {
+  final List<(Widget, List<DialogButton>)> widgets = [];
+  late AnimationController controller;
   int _count = 0;
 
   @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController.unbounded(
+          vsync: this,
+          value: 0.0,
+          duration: const Duration(milliseconds: 200),
+        )..addListener(() {
+          setState(() {});
+        });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Color.fromARGB(100, 0, 0, 0),
-      child: Center(
-        child: FractionallySizedBox(
-          widthFactor: 0.90,
-          heightFactor: 0.90,
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(25)),
-              color: Theme.of(context).colorScheme.surfaceContainerHigh,
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      DialogButton(
-                        onPressed: () => _handleClose(context),
-                        color: const Color.fromARGB(255, 146, 89, 89),
-                        child: _count > 0
-                            ? Icon(Icons.arrow_back)
-                            : Icon(Icons.close),
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: widget.actions ?? [],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Navigator(
-                    key: _innerNavigatorKey,
-                    onGenerateRoute: (_) => MaterialPageRoute(
-                      builder: (innerCtx) => Material(
-                        color: const Color.fromARGB(0, 0, 0, 0),
-                        child: widget.builder(_push, _handleClose),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+    return BaseDialog(
+      actions: [
+        DialogButton(
+          onPressed: () => _pop(context),
+          color: const Color.fromARGB(255, 146, 89, 89),
+          child: _count > 0 ? Icon(Icons.arrow_back) : Icon(Icons.close),
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:
+                (_count > 0 ? widgets[_count - 1].$2 : widget.actions) ?? [],
           ),
         ),
+      ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final width = constraints.maxWidth;
+
+          return Stack(
+            children: [
+              Positioned(
+                top: 0,
+                width: width,
+                bottom: 0,
+                left: -(width * controller.value),
+                child: widget.builder(_push, () => _pop(context)),
+              ),
+              for (int i = 0; i < widgets.length; ++i)
+                Positioned(
+                  key: Key("value$i"),
+                  top: 0,
+                  width: width,
+                  bottom: 0,
+                  left: ((i + 1) * width) - (width * controller.value),
+                  child: widgets[i].$1,
+                ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Future<T?>? _push<T extends Object?>(Route<T> route) {
-    setState(() {
-      ++_count;
-    });
-    return _innerNavigatorKey.currentState?.push(route);
+  void _push(Widget widget, List<DialogButton> actions) {
+    widgets.add((widget, actions));
+    ++_count;
+    controller.animateTo(_count.toDouble());
   }
 
-  void _handleClose(BuildContext context) {
-    if (_count > 0) {
-      setState(() {
-        --_count;
-      });
-      _innerNavigatorKey.currentState?.pop();
-      return;
+  void _pop(BuildContext context) {
+    if (widgets.isEmpty) {
+      return Navigator.pop(context);
     }
-    Navigator.pop(context);
+    widgets.removeLast();
+
+    --_count;
+    controller.animateBack(_count.toDouble());
   }
 }
