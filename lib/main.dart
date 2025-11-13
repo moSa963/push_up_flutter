@@ -10,18 +10,18 @@ final lightColor = ColorScheme.fromSeed(
   surfaceContainerLowest: Color.fromARGB(255, 255, 255, 255),
   surfaceContainerLow: Color.fromARGB(255, 245, 245, 245),
   surface: Color.fromARGB(255, 240, 240, 240),
-  surfaceContainer: Color.fromARGB(255, 230, 230, 230),
-  surfaceContainerHigh: Color.fromARGB(255, 220, 220, 220),
-  surfaceContainerHighest: Color.fromARGB(255, 210, 210, 210),
+  surfaceContainer: Color.fromARGB(255, 235, 235, 235),
+  surfaceContainerHigh: Color.fromARGB(255, 230, 230, 230),
+  surfaceContainerHighest: Color.fromARGB(255, 225, 225, 225),
 );
 
 final darkColors = ColorScheme.dark(
   surfaceContainerLowest: Color.fromARGB(255, 0, 0, 0),
   surfaceContainerLow: Color.fromARGB(255, 2, 2, 2),
   surface: Color.fromARGB(255, 5, 5, 5),
-  surfaceContainer: Color.fromARGB(255, 12, 12, 12),
-  surfaceContainerHigh: Color.fromARGB(255, 20, 20, 20),
-  surfaceContainerHighest: Color.fromARGB(255, 25, 25, 25),
+  surfaceContainer: Color.fromARGB(255, 8, 8, 8),
+  surfaceContainerHigh: Color.fromARGB(255, 12, 12, 12),
+  surfaceContainerHighest: Color.fromARGB(255, 15, 15, 15),
 );
 
 class MyApp extends StatelessWidget {
@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Push Up',
       theme: ThemeData(colorScheme: lightColor),
-      darkTheme: ThemeData(colorScheme: darkColors),
       home: const HomePage(),
     );
   }
