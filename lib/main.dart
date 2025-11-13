@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Push Up',
       theme: ThemeData(colorScheme: lightColor),
+      darkTheme: ThemeData(colorScheme: darkColors),
       home: const HomePage(),
     );
   }
