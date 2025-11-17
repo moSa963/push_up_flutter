@@ -27,7 +27,9 @@ class MainListViewItem extends StatelessWidget {
         padding: EdgeInsets.all(20),
         margin: selected ? EdgeInsets.only(top: 5, bottom: 5) : EdgeInsets.zero,
         decoration: BoxDecoration(
-          color: Theme.of(context).splashColor.withAlpha(10),
+          color: Theme.of(
+            context,
+          ).colorScheme.surfaceContainerHigh.withAlpha(90),
           borderRadius: BorderRadius.only(
             topLeft: firstRad,
             topRight: firstRad,
