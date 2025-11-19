@@ -8,11 +8,15 @@ class SetCard extends StatefulWidget {
     required this.model,
     this.onChange,
     this.title = "",
+    this.defaultOpen = false,
+    this.child,
   });
 
   final SetModel model;
   final Function(SetModel model)? onChange;
   final String title;
+  final bool defaultOpen;
+  final Widget? child;
 
   @override
   State<SetCard> createState() => _SetCardState();
@@ -20,6 +24,14 @@ class SetCard extends StatefulWidget {
 
 class _SetCardState extends State<SetCard> with TickerProviderStateMixin {
   bool _open = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _open = widget.defaultOpen;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +124,7 @@ class _SetCardState extends State<SetCard> with TickerProviderStateMixin {
                               : Text("${widget.model.weight} kg"),
                         ],
                       ),
+                      if (widget.child != null) widget.child!,
                     ],
                   ),
                 ),
