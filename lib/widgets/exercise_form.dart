@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:push_up_flutter/widgets/counter.dart';
+import 'package:push_up_flutter/models/exercise_model.dart';
+import 'package:push_up_flutter/models/set_model.dart';
+import 'package:push_up_flutter/widgets/flat_button.dart';
+import 'package:push_up_flutter/widgets/set_card.dart';
 
 class ExerciseForm extends StatefulWidget {
   const ExerciseForm({super.key});
@@ -9,7 +12,9 @@ class ExerciseForm extends StatefulWidget {
 }
 
 class _ExerciseFormState extends State<ExerciseForm> {
-  double _counter = 0;
+  ExerciseModel exercise = ExerciseModel(name: "", sets: []);
+
+  SetModel _set = SetModel(reps: 0, weight: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -23,38 +28,34 @@ class _ExerciseFormState extends State<ExerciseForm> {
             border: InputBorder.none,
             fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
           ),
+          onChanged: (value) => exercise.name = value,
         ),
         SizedBox(height: 20),
-        Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 10, vertical: 4),
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              border: Border.all(color: Theme.of(context).hintColor),
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            ),
 
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Sets: "),
-                    Counter(
-                      value: _counter,
-                      onChange: (v) => setState(() {
-                        _counter = v;
-                      }),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+        for (int i = 0; i < exercise.sets.length; ++i)
+          SetCard(
+            key: Key("setCard_$i"),
+            model: exercise.sets[i],
+            title: "Set ${i + 1}",
           ),
+
+        SetCard(
+          model: _set,
+          onChange: (model) => setState(() {
+            _set = model;
+          }),
+          defaultOpen: true,
+          title: "New Set",
+          child: FlatButton(onPressed: _handleNewSet, child: Text("ADD")),
         ),
       ],
     );
+  }
+
+  void _handleNewSet() {
+    setState(() {
+      exercise.sets.add(_set);
+      _set = SetModel(reps: _set.reps, weight: _set.weight);
+    });
   }
 }
