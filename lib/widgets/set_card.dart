@@ -7,6 +7,7 @@ class SetCard extends StatefulWidget {
     super.key,
     required this.model,
     this.onChange,
+    this.onDelete,
     this.title = "",
     this.defaultOpen = false,
     this.child,
@@ -14,6 +15,7 @@ class SetCard extends StatefulWidget {
 
   final SetModel model;
   final Function(SetModel model)? onChange;
+  final Function(SetModel model)? onDelete;
   final String title;
   final bool defaultOpen;
   final Widget? child;
@@ -70,15 +72,42 @@ class _SetCardState extends State<SetCard> with TickerProviderStateMixin {
                     children: [
                       Text(widget.title),
 
-                      AnimatedSlide(
-                        duration: const Duration(milliseconds: 250),
-                        offset: !_open ? Offset.zero : const Offset(0, 2),
-                        child: Row(
-                          children: [
-                            Text("${widget.model.reps} rep"),
-                            const SizedBox(width: 10),
-                            Text("${widget.model.weight} kg"),
-                          ],
+                      Expanded(
+                        child: AnimatedSlide(
+                          duration: const Duration(milliseconds: 250),
+                          offset: _open ? Offset.zero : const Offset(0, -2),
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: AlignmentGeometry.centerRight,
+                            children: [
+                              Positioned(
+                                top: 65,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text("${widget.model.reps} rep"),
+                                    const SizedBox(width: 10),
+                                    Text("${widget.model.weight} kg"),
+                                  ],
+                                ),
+                              ),
+                              widget.onDelete != null
+                                  ? IconButton(
+                                      onPressed: () =>
+                                          widget.onDelete?.call(widget.model),
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.error,
+                                      icon: Icon(Icons.delete),
+                                      iconSize: 20,
+                                      constraints: BoxConstraints(
+                                        maxHeight: 30,
+                                        maxWidth: 30,
+                                      ),
+                                    )
+                                  : SizedBox(height: 30, width: 30),
+                            ],
+                          ),
                         ),
                       ),
                     ],
