@@ -7,13 +7,15 @@ import 'package:push_up_flutter/widgets/set_card.dart';
 class ExerciseForm extends StatefulWidget {
   const ExerciseForm({super.key});
 
+  static final GlobalKey<_ExerciseFormState> globalKey = GlobalKey();
+
   @override
   State<ExerciseForm> createState() => _ExerciseFormState();
 }
 
 class _ExerciseFormState extends State<ExerciseForm> {
   ExerciseModel exercise = ExerciseModel(name: "", sets: []);
-
+  List<SetModel> _deleted = [];
   SetModel _set = SetModel(reps: 0, weight: 0);
 
   @override
@@ -33,21 +35,37 @@ class _ExerciseFormState extends State<ExerciseForm> {
         SizedBox(height: 20),
 
         for (int i = 0; i < exercise.sets.length; ++i)
-          SetCard(
-            key: Key("setCard_$i"),
-            model: exercise.sets[i],
-            title: "Set ${i + 1}",
+          AnimatedSlide(
+            key: ValueKey(exercise.sets[i]),
+            offset: Offset(_deleted.contains(exercise.sets[i]) ? -0.9 : 0, 0),
+            duration: Duration(milliseconds: 100),
+            onEnd: () => setState(() {
+              exercise.sets.remove(exercise.sets[i]);
+            }),
+            child: SetCard(
+              model: exercise.sets[i],
+              title: "Set ${i + 1}",
+              onChange: (model) {
+                setState(() {});
+              },
+              onDelete: (model) {
+                setState(() {
+                  _deleted.add(model);
+                });
+              },
+            ),
           ),
 
-        SetCard(
-          model: _set,
-          onChange: (model) => setState(() {
-            _set = model;
-          }),
-          defaultOpen: true,
-          title: "New Set",
-          child: FlatButton(onPressed: _handleNewSet, child: Text("ADD")),
-        ),
+        if (exercise.sets.length < 10)
+          SetCard(
+            model: _set,
+            onChange: (model) => setState(() {
+              _set = model;
+            }),
+            defaultOpen: true,
+            title: "New Set",
+            child: FlatButton(onPressed: _handleNewSet, child: Text("ADD")),
+          ),
       ],
     );
   }
