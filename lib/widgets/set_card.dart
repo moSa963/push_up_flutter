@@ -93,8 +93,12 @@ class _SetCardState extends State<SetCard> with TickerProviderStateMixin {
                               ),
                               widget.onDelete != null
                                   ? IconButton(
-                                      onPressed: () =>
-                                          widget.onDelete?.call(widget.model),
+                                      onPressed: () {
+                                        setState(() {
+                                          _open = false;
+                                        });
+                                        widget.onDelete?.call(widget.model);
+                                      },
                                       color: Theme.of(
                                         context,
                                       ).colorScheme.error,
