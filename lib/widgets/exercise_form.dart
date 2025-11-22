@@ -38,7 +38,7 @@ class _ExerciseFormState extends State<ExerciseForm> {
           AnimatedSlide(
             key: ValueKey(exercise.sets[i]),
             offset: Offset(_deleted.contains(exercise.sets[i]) ? -0.9 : 0, 0),
-            duration: Duration(milliseconds: 100),
+            duration: Duration(milliseconds: 200),
             onEnd: () => setState(() {
               exercise.sets.remove(exercise.sets[i]);
             }),
